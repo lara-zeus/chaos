@@ -20,7 +20,7 @@ class ChaosResource extends Resource
     /*public static function getNavigationGroup(): ?string
     {
         return __(
-            'EvoFilament.' .
+            'zeus-chaos::core.' .
             str(get_called_class())
                 ->replace('App\\Filament\\', '')
                 ->replace('Admin\\Resources\\', '')
