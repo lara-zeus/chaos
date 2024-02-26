@@ -3,6 +3,7 @@
 namespace LaraZeus\Chaos\Concerns;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 trait ChaosModel
 {
@@ -19,16 +20,6 @@ trait ChaosModel
         });
     }
 
-    public static function isUsingSoftDelete(): bool
-    {
-        return in_array(
-            'Illuminate\Database\Eloquent\SoftDeletes',
-            class_uses((new static)),
-            true
-        )
-            && ! (new static)->forceDeleting;
-    }
-
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(\App\Models\User::class, 'created_by');
@@ -39,8 +30,14 @@ trait ChaosModel
         return $this->belongsTo(\App\Models\User::class, 'updated_by');
     }
 
-    public static function filamentUsesActionBy(): bool
+    public static function isUsingActionBy(): bool
     {
         return true;
+    }
+
+    public static function isUsingSoftDelete(): bool
+    {
+        return in_array(SoftDeletes::class, class_uses((new static)), true)
+            && ! (new static)->forceDeleting;
     }
 }
