@@ -16,8 +16,8 @@
     ],
     "require": {
         "php": "^8.1",
-        "filament/filament": "^3.1",
-        "lara-zeus/popover": "1.x-dev",
+        "filament/filament": "^3.0",
+        "lara-zeus/popover": "^1.0",
         "spatie/laravel-package-tools": "^1.16"
     },
     "require-dev": {
@@ -50,6 +50,7 @@
         }
     },
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "extra": {
         "laravel": {
             "providers": [

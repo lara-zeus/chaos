@@ -34,7 +34,7 @@ class ChaosForms
                                     : '-'),
 
                             PopoverForm::make('created_by')
-                                ->formatStateUsing(fn ($record) => $record->createdBy?->name)
+                                ->formatStateUsing(fn ($record) => $record?->createdBy?->name)
                                 ->placement('right')
                                 ->content(fn ($record) => view('zeus-chaos::tables.columns.popover-user-card', [
                                     'user' => $record?->createdBy,
@@ -50,7 +50,7 @@ class ChaosForms
                                     : '-'),
 
                             PopoverForm::make('updated_by')
-                                ->formatStateUsing(fn ($record) => $record->updatedBy?->name)
+                                ->formatStateUsing(fn ($record) => $record?->updatedBy?->name)
                                 ->placement('right')
                                 ->content(fn ($record) => view('zeus-chaos::tables.columns.popover-user-card', [
                                     'user' => $record?->updatedBy,
