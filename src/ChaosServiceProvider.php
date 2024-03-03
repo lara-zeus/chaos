@@ -20,11 +20,13 @@ class ChaosServiceProvider extends PackageServiceProvider
     public function packageBooted(): void
     {
         Blueprint::macro('actionBy', function () {
+            /** @var Blueprint $this */
             $this->string('created_by')->nullable();
             $this->string('updated_by')->nullable();
         });
 
         Blueprint::macro('dropActionBy', function () {
+            /** @var Blueprint $this */
             $this->dropColumn('created_by');
             $this->dropColumn('updated_by');
         });
