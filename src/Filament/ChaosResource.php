@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ChaosResource extends Resource
 {
     use Translatable;
-    
+
     protected static ?string $navigationIcon = 'tabler-point-filled';
 
     public static function langFile(): string

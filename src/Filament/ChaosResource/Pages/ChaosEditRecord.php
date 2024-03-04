@@ -9,7 +9,7 @@ use Filament\Resources\Pages\EditRecord;
 class ChaosEditRecord extends EditRecord
 {
     use EditRecord\Concerns\Translatable;
-    
+
     protected function getHeaderActions(): array
     {
         return [
