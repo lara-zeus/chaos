@@ -2,12 +2,15 @@
 
 namespace LaraZeus\Chaos\Filament;
 
+use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ChaosResource extends Resource
 {
+    use Translatable;
+    
     protected static ?string $navigationIcon = 'tabler-point-filled';
 
     public static function langFile(): string

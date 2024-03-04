@@ -53,7 +53,7 @@ class ChaosTables
                         'record' => $record,
                     ]))
                     ->label(__('zeus-chaos::core.created_by'))
-                    ->toggleable($model::isUsingActionBy(), isToggledHiddenByDefault: ! $model::isUsingActionBy())
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->visible($model::isUsingActionBy()),
 
                 TextColumn::make('updated_at')
@@ -70,7 +70,7 @@ class ChaosTables
                         'column' => 'updated-by',
                         'record' => $record,
                     ]))
-                    ->toggleable($model::isUsingActionBy(), isToggledHiddenByDefault: ! $model::isUsingActionBy())
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->label(__('zeus-chaos::core.updated_by'))
                     ->visible($model::isUsingActionBy()),
 
@@ -79,7 +79,7 @@ class ChaosTables
                     ->label(__('zeus-chaos::core.deleted_at'))
                     ->dateTime()
                     ->searchable(false)
-                    ->toggleable($model::isUsingActionBy(), isToggledHiddenByDefault: ! $model::isUsingActionBy()),
+                    ->toggleable(isToggledHiddenByDefault: true)
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
