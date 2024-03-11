@@ -79,7 +79,7 @@ class ChaosTables
                     ->label(__('zeus-chaos::core.deleted_at'))
                     ->dateTime()
                     ->searchable(false)
-                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
