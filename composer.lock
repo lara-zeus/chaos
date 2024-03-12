@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1175614757fba14d74bac168a1b7f599",
+    "content-hash": "76d4de2e3490c97b450b734a5a789721",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1880,11 +1880,17 @@
         },
         {
             "name": "lara-zeus/popover",
-            "version": "1.x-dev",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lara-zeus/popover.git",
+                "reference": "334304b5aac5d7d12ee87bb8f13c40c1327180b1"
+            },
             "dist": {
-                "type": "path",
-                "url": "../popover",
-                "reference": "2a348f97a75321a9051e91b4060c836fc0d32152"
+                "type": "zip",
+                "url": "https://api.github.com/repos/lara-zeus/popover/zipball/334304b5aac5d7d12ee87bb8f13c40c1327180b1",
+                "reference": "334304b5aac5d7d12ee87bb8f13c40c1327180b1",
+                "shasum": ""
             },
             "require": {
                 "filament/filament": "^3.0",
@@ -1912,20 +1918,7 @@
                     "LaraZeus\\Popover\\": "src"
                 }
             },
-            "scripts": {
-                "analyse": [
-                    "vendor/bin/phpstan analyse"
-                ],
-                "format": [
-                    "vendor/bin/pint"
-                ],
-                "pint": [
-                    "vendor/bin/pint"
-                ],
-                "test:phpstan": [
-                    "vendor/bin/phpstan analyse"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1936,7 +1929,7 @@
                     "role": "Owner"
                 }
             ],
-            "description": "Zeus Popover is filamentphp component to show a Popover with custom content in tables and infolist\n",
+            "description": "Zeus Popover is filamentphp component to show a Popover with custom content in tables and infolist",
             "homepage": "https://larazeus.com/popover",
             "keywords": [
                 "code",
@@ -1957,22 +1950,30 @@
                 "issues": "https://github.com/lara-zeus/popover/issues",
                 "source": "https://github.com/lara-zeus/popover"
             },
-            "transport-options": {
-                "relative": true
-            }
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/larazeus",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/atmonshi",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-03-09T08:37:19+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v10.47.0",
+            "version": "v10.48.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "fce29b8de62733cdecbe12e3bae801f83fff2ea4"
+                "reference": "03c9b53e4b740e0486db8eb2569a5e8032843ebf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/fce29b8de62733cdecbe12e3bae801f83fff2ea4",
-                "reference": "fce29b8de62733cdecbe12e3bae801f83fff2ea4",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/03c9b53e4b740e0486db8eb2569a5e8032843ebf",
+                "reference": "03c9b53e4b740e0486db8eb2569a5e8032843ebf",
                 "shasum": ""
             },
             "require": {
@@ -2020,6 +2021,7 @@
             "conflict": {
                 "carbonphp/carbon-doctrine-types": ">=3.0",
                 "doctrine/dbal": ">=4.0",
+                "mockery/mockery": ">=1.6.8",
                 "phpunit/phpunit": ">=11.0.0",
                 "tightenco/collect": "<5.5.33"
             },
@@ -2165,7 +2167,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-03-05T15:18:36+00:00"
+            "time": "2024-03-12T13:41:54+00:00"
         },
         {
             "name": "laravel/prompts",
