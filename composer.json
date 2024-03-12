@@ -57,11 +57,5 @@
                 "LaraZeus\\Chaos\\ChaosServiceProvider"
             ]
         }
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../*"
-        }
-    ]
+    }
 }
