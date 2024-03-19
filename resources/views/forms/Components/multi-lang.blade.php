@@ -36,7 +36,8 @@
                        :attributes="
                             \Filament\Support\prepare_inherited_attributes($getExtraInputAttributeBag())
                                 ->merge([
-                                    'id' => $id.$lang,
+                                    'id' => $id.'.'.$lang,
+                                    'name' => $id.'.'.$lang,
                                     'placeholder' => $getPlaceholder(),
                                     'required' => $isRequired(),
                                     'type' => 'text',
