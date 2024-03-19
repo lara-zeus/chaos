@@ -85,7 +85,7 @@ class ChaosTables
                 Tables\Actions\ActionGroup::make([
                     ...$actions,
                     Tables\Actions\ViewAction::make()
-                        /*->visible(function() use($resource){
+                    /*->visible(function() use($resource){
                             return false;
                             dd($resource::getPages(),static::resourceHasPage($resource, 'view'));
                         })*/,
