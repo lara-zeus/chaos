@@ -8,7 +8,7 @@
     <div x-data="{ activeTab: 'tab-ar' }">
         <x-filament::tabs class="!py-1 !px-2 !flex-none !m-0" :contained="true">
             <div class="w-full flex items-center justify-between gap-10">
-                <x-filament::tabs.item icon="ri-translate" class="!px-2 !py-0.5">
+                <x-filament::tabs.item icon="tabler-language-katakana" class="!px-2 !py-0.5">
                     <span class="!text-sm !text-primary-600">
                         {{ $label }}
                     </span>
