@@ -11,19 +11,28 @@ class MultiLang extends TextInput
     protected function setUp(): void
     {
         parent::setUp();
-        $this->formatStateUsing(function () {
-            $defaultDataForLang = [];
-
-            foreach (config('app.locales') as $lang => $info) {
-                if (static::getRecord() === null) {
+        $this
+            ->default(function () {
+                $defaultDataForLang = [];
+                foreach (config('app.locales') as $lang => $info) {
                     $defaultDataForLang[$lang] = '';
-                } else {
-                    // @phpstan-ignore-next-line
-                    $defaultDataForLang[$lang] = static::getRecord()->getTranslation('name', $lang);
                 }
-            }
 
-            return $defaultDataForLang;
-        });
+                return $defaultDataForLang;
+            })
+            ->formatStateUsing(function () {
+                $defaultDataForLang = [];
+
+                foreach (config('app.locales') as $lang => $info) {
+                    if (static::getRecord() === null) {
+                        $defaultDataForLang[$lang] = '';
+                    } else {
+                        // @phpstan-ignore-next-line
+                        $defaultDataForLang[$lang] = static::getRecord()->getTranslation('name', $lang);
+                    }
+                }
+
+                return $defaultDataForLang;
+            });
     }
 }
