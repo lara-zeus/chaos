@@ -88,12 +88,12 @@ class ChaosTables
                         ->visible(fn () => static::resourceHasPage($resource, 'view')),
                     Tables\Actions\EditAction::make()->color('info')->visible(static::resourceHasPage($resource, 'edit')),
                     Tables\Actions\DeleteAction::make()
-                        ->visible(
-                            collect($actions)->filter(function ($utem) {
+                        ->visible(function($record) use ($actions, $resource) {
+                            return collect($actions)->filter(function ($utem) {
                                 return $utem instanceof Tables\Actions\DeleteAction;
                             })->isEmpty()
-                            && $resource::authorize('delete')->allowed()
-                        ),
+                            && $resource::authorize('delete', $record)->allowed();
+                        }),
                     ForceDeleteAction::make(),
                     RestoreAction::make(),
                 ]),
