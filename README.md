@@ -7,6 +7,11 @@ provide extra layer between you app and Filament, dont worry about generic colum
 
 and some more perks, more details coming soon.
 
+## Installation:
+```bash
+composer require lara-zeus/chaos
+```
+
 ### `ChaosModel` trait:
   - add action by
   - checks for `isUsingActionBy` and `isUsingSoftDelete`
