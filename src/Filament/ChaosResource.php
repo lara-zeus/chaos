@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ChaosResource extends Resource
 {
-    protected static ?string $navigationIcon = 'tabler-point-filled';
+    protected static string | \BackedEnum | null $navigationIcon = 'tabler-point-filled';
 
     public static function langFile(): string
     {
