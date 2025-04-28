@@ -2,24 +2,31 @@
 
 namespace LaraZeus\Chaos\Filament\ChaosResource;
 
-use Filament\Infolists\Components\Grid;
-use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Infolist;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Illuminate\Support\HtmlString;
 
 class ChaosInfos
 {
-    public static function make(Infolist $infolist, array $enries): Infolist
+    /**
+     * @throws \Exception
+     */
+    public static function make(Schema $infolist, array $enries): Schema
     {
         return $infolist
             ->schema([
                 Grid::make(['sm' => 3])
+                    ->columnSpanFull()
                     ->schema([
-                        Grid::make()->schema($enries)->columnSpan(['sm' => 2]),
+                        Grid::make()
+                            ->schema($enries)
+                            ->columnSpan(['sm' => 2]),
                         Grid::make()
                             ->schema([
                                 Section::make(__('zeus-chaos::core.record_info'))
+                                    ->columnSpanFull()
                                     ->compact()
                                     ->columns(2)
                                     ->iconColor('secondary')
@@ -38,7 +45,7 @@ class ChaosInfos
                                             ->dateTime('Y/m/d - h:i A'),
                                         TextEntry::make('updated_by')
                                             ->label(__('zeus-chaos::core.updated_by'))
-                                            ->getStateUsing(fn ($record) => $record?->updated_by ? new HtmlString($record->updated_by) : '-'),
+                                            ->state(fn ($record) => $record?->updated_by ? new HtmlString($record->updated_by) : '-'),
                                     ]),
                             ])
                             ->columnSpan(['sm' => 1]),
