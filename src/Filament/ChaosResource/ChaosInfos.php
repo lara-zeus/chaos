@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Chaos\Filament\ChaosResource;
 
+use Exception;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
@@ -11,12 +12,12 @@ use Illuminate\Support\HtmlString;
 class ChaosInfos
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public static function make(Schema $infolist, array $enries): Schema
+    public static function make(Schema $schema, array $enries): Schema
     {
-        return $infolist
-            ->schema([
+        return $schema
+            ->components([
                 Grid::make(['sm' => 3])
                     ->columnSpanFull()
                     ->schema([

@@ -2,9 +2,14 @@
 
 namespace LaraZeus\Chaos\Filament\ChaosResource;
 
-use Filament\Tables;
-use Filament\Tables\Actions\ForceDeleteAction;
-use Filament\Tables\Actions\RestoreAction;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -82,20 +87,20 @@ class ChaosTables
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->actions([
-                Tables\Actions\ActionGroup::make([
+                ActionGroup::make([
                     ...$actions,
-                    Tables\Actions\ViewAction::make()
+                    ViewAction::make()
                         ->visible(fn () => static::resourceHasPage($resource, 'view')),
-                    Tables\Actions\EditAction::make()->color('info')->visible(static::resourceHasPage($resource, 'edit')),
-                    Tables\Actions\DeleteAction::make()
+                    EditAction::make()->color('info')->visible(static::resourceHasPage($resource, 'edit')),
+                    DeleteAction::make()
                         ->visible(function ($record) use ($actions, $resource) {
                             return collect($actions)->filter(function ($utem) {
-                                return $utem instanceof Tables\Actions\DeleteAction;
+                                return $utem instanceof DeleteAction;
                             })->isEmpty()
                             && $resource::authorize('delete', $record)->allowed();
                         }),
-                    ForceDeleteAction::make(),
-                    RestoreAction::make(),
+                    \Filament\Actions\ForceDeleteAction::make(),
+                    \Filament\Actions\RestoreAction::make(),
                 ]),
             ])
             ->filters([
@@ -114,10 +119,10 @@ class ChaosTables
         }
 
         return [
-            Tables\Actions\BulkActionGroup::make([
-                Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make()->visible($table->getModel()::isUsingSoftDelete()),
-                Tables\Actions\RestoreBulkAction::make()->visible($table->getModel()::isUsingSoftDelete()),
+            BulkActionGroup::make([
+                DeleteBulkAction::make(),
+                ForceDeleteBulkAction::make()->visible($table->getModel()::isUsingSoftDelete()),
+                RestoreBulkAction::make()->visible($table->getModel()::isUsingSoftDelete()),
             ]),
         ];
     }

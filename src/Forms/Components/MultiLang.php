@@ -2,14 +2,16 @@
 
 namespace LaraZeus\Chaos\Forms\Components;
 
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Tabs\Tab;
+use Illuminate\Contracts\Support\Htmlable;
+use Closure;
 
-class MultiLang extends Tabs
+class MultiLang extends \Filament\Schemas\Components\Tabs
 {
     public string $theMainKeyThingy = '';
 
-    public static function make(?string $label = null): static
+    public static function make(string | Htmlable | Closure | null $label = null): static
     {
         static::configureUsing(function ($component) use ($label) {
             $component->theMainKeyThingy = $label;
@@ -26,7 +28,7 @@ class MultiLang extends Tabs
             ->tabs(function (MultiLang $multiLangComponent) {
                 $tabs = [];
                 foreach (config('app.locales') as $lang => $info) {
-                    $tabs[] = Tabs\Tab::make('tab-' . $lang)
+                    $tabs[] = Tab::make('tab-' . $lang)
                         ->statePath($this->getLangKey())
                         ->label($info['name'])
                         // no need for this, cause issues on repeaters, seems filament will handle the array state from spatie
@@ -43,7 +45,7 @@ class MultiLang extends Tabs
 
                             return $defaultDataForLang;
                         })*/
-                        ->schema(fn (Tabs\Tab $tabComponent) => [
+                        ->schema(fn (Tab $tabComponent) => [
                             TextInput::make($lang)
                                 ->required(fn () => app()->getLocale() === $lang)
                                 ->label(fn () => $multiLangComponent->getLabel()),

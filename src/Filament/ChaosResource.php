@@ -2,13 +2,14 @@
 
 namespace LaraZeus\Chaos\Filament;
 
+use BackedEnum;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ChaosResource extends Resource
 {
-    protected static string | \BackedEnum | null $navigationIcon = 'tabler-point-filled';
+    protected static string | BackedEnum | null $navigationIcon = 'tabler-point-filled';
 
     public static function langFile(): string
     {
