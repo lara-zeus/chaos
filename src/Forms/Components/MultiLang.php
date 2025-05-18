@@ -2,10 +2,10 @@
 
 namespace LaraZeus\Chaos\Forms\Components;
 
+use Closure;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Contracts\Support\Htmlable;
-use Closure;
 
 class MultiLang extends \Filament\Schemas\Components\Tabs
 {
