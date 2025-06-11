@@ -55,6 +55,7 @@ public static function form(Form $form): Form
 {
     return ChaosForms::make($form, [
         Section::make()
+            ->columnSpanFull()
             ->columns()
             ->schema([
                 //
