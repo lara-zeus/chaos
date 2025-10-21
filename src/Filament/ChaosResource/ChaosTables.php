@@ -7,7 +7,9 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
@@ -86,7 +88,7 @@ class ChaosTables
                     ->searchable(false)
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ...$actions,
                     ViewAction::make()
@@ -99,8 +101,8 @@ class ChaosTables
                             })->isEmpty()
                             && $resource::authorize('delete', $record)->allowed();
                         }),
-                    \Filament\Actions\ForceDeleteAction::make(),
-                    \Filament\Actions\RestoreAction::make(),
+                    ForceDeleteAction::make(),
+                    RestoreAction::make(),
                 ]),
             ])
             ->filters([
@@ -109,7 +111,7 @@ class ChaosTables
             ])
             ->paginated([25])
             ->defaultSort($model->getKeyName(), 'desc')
-            ->bulkActions(static::getBulkActions($bulkActions, $table));
+            ->toolbarActions(static::getBulkActions($bulkActions, $table));
     }
 
     public static function getBulkActions(?array $bulkActions, Table $table): array

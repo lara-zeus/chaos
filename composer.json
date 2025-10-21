@@ -21,6 +21,7 @@
         "spatie/laravel-package-tools": "^1.16"
     },
     "require-dev": {
+        "filament/upgrade": "^4.0",
         "phpstan/extension-installer": "^1.4",
         "larastan/larastan": "^3.0",
         "laravel/pint": "^1.0",
@@ -55,7 +56,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
-    "minimum-stability": "beta",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "extra": {
         "laravel": {
