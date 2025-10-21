@@ -29,7 +29,7 @@ class ChaosForms
                                 ->columnSpanFull()
                                 ->columns(1)
                                 ->compact()
-                                ->schema([
+                                ->components([
                                     TextEntry::make('created_at')
                                         ->label(__('zeus-chaos::core.created_at'))
                                         ->state(fn ($record): string => $record?->created_at
@@ -72,10 +72,10 @@ class ChaosForms
         ]);
     }
 
-    public static function showSideSection(string $operation, array $sideSections, Schema $form): bool
+    public static function showSideSection(string $operation, array $sideSections, Schema $schema): bool
     {
         return
             ! empty($sideSections)
-            || ($operation === 'edit' && (new $form->model)->usesTimestamps());
+            || ($operation === 'edit' && (new $schema->model)->usesTimestamps());
     }
 }

@@ -2,7 +2,8 @@
 
 namespace LaraZeus\Chaos\Filament\ChaosResource\Pages;
 
-use Filament\Actions;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 
 class ChaosEditRecord extends EditRecord
@@ -11,8 +12,8 @@ class ChaosEditRecord extends EditRecord
     {
         return [
             ...parent::getHeaderActions(),
-            Actions\ViewAction::make()->visible(static::getResource()::hasPage('view')),
-            Actions\DeleteAction::make(),
+            ViewAction::make()->visible(static::getResource()::hasPage('view')),
+            DeleteAction::make(),
         ];
     }
 }

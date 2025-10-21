@@ -2,7 +2,7 @@
 
 namespace LaraZeus\Chaos\Filament\ChaosResource\Pages;
 
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ChaosListRecords extends ListRecords
@@ -11,7 +11,7 @@ class ChaosListRecords extends ListRecords
     {
         return [
             ...parent::getHeaderActions(),
-            Actions\CreateAction::make()->visible(static::getResource()::hasPage('create')),
+            CreateAction::make()->visible(static::getResource()::hasPage('create')),
         ];
     }
 }

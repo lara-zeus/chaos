@@ -7,7 +7,9 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
@@ -37,7 +39,10 @@ class ChaosTables
         return $table
             ->columns([
                 TextColumn::make($model->getKeyName())
-                    ->searchable(query: fn (Builder $query, string $search) => $query->orWhere($model->getTable() . '.' . $model->getKeyName(), 'like', '%' . $search . '%'))
+                    ->searchable(query: fn (
+                        Builder $query,
+                        string $search
+                    ) => $query->orWhere($model->getTable() . '.' . $model->getKeyName(), 'like', '%' . $search . '%'))
                     ->label(__('zeus-chaos::core.id'))
                     ->toggleable(isToggledHiddenByDefault: true),
 
@@ -86,7 +91,7 @@ class ChaosTables
                     ->searchable(false)
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ...$actions,
                     ViewAction::make()
@@ -97,10 +102,10 @@ class ChaosTables
                             return collect($actions)->filter(function ($utem) {
                                 return $utem instanceof DeleteAction;
                             })->isEmpty()
-                            && $resource::authorize('delete', $record)->allowed();
+                                && $resource::authorize('delete', $record)->allowed();
                         }),
-                    \Filament\Actions\ForceDeleteAction::make(),
-                    \Filament\Actions\RestoreAction::make(),
+                    ForceDeleteAction::make(),
+                    RestoreAction::make(),
                 ]),
             ])
             ->filters([
@@ -109,7 +114,7 @@ class ChaosTables
             ])
             ->paginated([25])
             ->defaultSort($model->getKeyName(), 'desc')
-            ->bulkActions(static::getBulkActions($bulkActions, $table));
+            ->toolbarActions(static::getBulkActions($bulkActions, $table));
     }
 
     public static function getBulkActions(?array $bulkActions, Table $table): array
@@ -121,7 +126,9 @@ class ChaosTables
         return [
             BulkActionGroup::make([
                 DeleteBulkAction::make(),
+                // @phpstan-ignore-next-line
                 ForceDeleteBulkAction::make()->visible($table->getModel()::isUsingSoftDelete()),
+                // @phpstan-ignore-next-line
                 RestoreBulkAction::make()->visible($table->getModel()::isUsingSoftDelete()),
             ]),
         ];
