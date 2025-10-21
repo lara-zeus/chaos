@@ -20,11 +20,13 @@ jobs:
           - laravel: 11.*
             testbench: 9.*
             carbon: ^2.72.2
+            openspout: 4.28.5
           - laravel: 12.*
             testbench: 10.*
             carbon: ^3.8.4
+            openspout: 4.*
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }} - O${{ matrix.openspout }}
 
     steps:
       - name: Checkout code
@@ -44,7 +46,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer require "openspout/openspout:${{ matrix.openspout }}" "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
