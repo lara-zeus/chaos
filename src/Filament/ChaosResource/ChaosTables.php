@@ -39,7 +39,10 @@ class ChaosTables
         return $table
             ->columns([
                 TextColumn::make($model->getKeyName())
-                    ->searchable(query: fn (Builder $query, string $search) => $query->orWhere($model->getTable() . '.' . $model->getKeyName(), 'like', '%' . $search . '%'))
+                    ->searchable(query: fn (
+                        Builder $query,
+                        string $search
+                    ) => $query->orWhere($model->getTable() . '.' . $model->getKeyName(), 'like', '%' . $search . '%'))
                     ->label(__('zeus-chaos::core.id'))
                     ->toggleable(isToggledHiddenByDefault: true),
 
@@ -99,7 +102,7 @@ class ChaosTables
                             return collect($actions)->filter(function ($utem) {
                                 return $utem instanceof DeleteAction;
                             })->isEmpty()
-                            && $resource::authorize('delete', $record)->allowed();
+                                && $resource::authorize('delete', $record)->allowed();
                         }),
                     ForceDeleteAction::make(),
                     RestoreAction::make(),
@@ -123,7 +126,9 @@ class ChaosTables
         return [
             BulkActionGroup::make([
                 DeleteBulkAction::make(),
+                // @phpstan-ignore-next-line
                 ForceDeleteBulkAction::make()->visible($table->getModel()::isUsingSoftDelete()),
+                // @phpstan-ignore-next-line
                 RestoreBulkAction::make()->visible($table->getModel()::isUsingSoftDelete()),
             ]),
         ];

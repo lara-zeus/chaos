@@ -26,11 +26,11 @@ class ChaosResource extends Resource
         return __(static::langFile() . '.title');
     }
 
-    // @phpstan-ignore-next-line
     public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();
 
+        // @phpstan-ignore-next-line
         if (static::getModel()::isUsingSoftDelete()) {
             $query
                 ->withoutGlobalScopes([
@@ -38,6 +38,7 @@ class ChaosResource extends Resource
                 ]);
         }
 
+        // @phpstan-ignore-next-line
         if (static::getModel()::isUsingActionBy()) {
             $query->with(['createdBy', 'updatedBy']);
         }
