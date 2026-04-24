@@ -13,8 +13,5 @@ If you are using Tailwind CSS v4, class scanning is configured from your CSS ent
 Add these source paths to your app stylesheet (for example `resources/css/app.css`):
 
 ```css
-@import "tailwindcss";
-
 @source "../../vendor/lara-zeus/chaos/resources/views/**/*.blade.php";
-@source "../../vendor/lara-zeus/chaos/resources/views/themes/**/*.blade.php";
 ```
