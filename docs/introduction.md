@@ -5,15 +5,21 @@ weight: 1
 
 ## Introduction
 
-@zeus chaos is an opinionated Filament setup layer that standardizes resources, forms, and tables.
+@zeus chaos is a thin convention layer on top of Filament. It standardizes how **resources**, **forms**, **tables**, **infolists**, and **models** handle things you repeat on every CRUD screen: audit fields (`created_by` / `updated_by`), soft deletes, timestamps, row actions, and bulk actions.
 
 **[Github](https://github.com/lara-zeus/chaos) · [Packagist](https://packagist.org/packages/lara-zeus/chaos) · [Discord](https://discord.com/channels/883083792112300104)**
 
 ## Features
 
-- `ChaosModel` helpers for common model behavior
-- `ChaosResource` base class for shared resource conventions
-- `ChaosForms` and `ChaosTables` builders with consistent defaults
+- **`ChaosModel`** — sets `created_by` / `updated_by` on save, defines `createdBy()` / `updatedBy()` relations, and exposes `isUsingActionBy()` / `isUsingSoftDelete()` so UI code can turn columns on or off.
+- **Blueprint macros** — `actionBy()` and `dropActionBy()` for migrations.
+- **`ChaosResource`** — derives model labels from a **lang file** named from the resource slug; adjusts the Eloquent query (soft-delete scope, eager-loading `createdBy` / `updatedBy` when enabled).
+- **`ChaosForms`** — shared **grid layout** with your schema on the main area and an optional **sidebar** (your sections + collapsible “record info”: timestamps, created-by popover via [Popover](https://github.com/lara-zeus/popover)).
+- **`ChaosTables`** — ID + **timestamp** columns, **created by / updated by** popover columns, **deleted at** when soft deletes are on, **trashed filter**, default **pagination 25** and **sort by primary key desc**, row **action group** (view / edit / delete / force delete / restore when allowed), and **bulk** delete / force delete / restore.
+- **`ChaosInfos`** — infolist/`Schema` layout with **record info** sidebar (created/updated timestamps and by-fields).
+- **`ChaosEditRecord`**, **`ChaosListRecords`**, **`ChaosViewRecord`** — header actions wired to **View** / **Delete** / **Create** / **Edit** only when the resource actually registers those pages.
+- **`MultiLang`** — **tabs** per `config('app.locales')` for a translatable attribute (pairs well with Spatie Translatable).
+- **`UserCardColumn`** — thin alias of Popover’s `PopoverColumn` for user detail popovers in tables.
 
 ## Support
 

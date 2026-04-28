@@ -5,4 +5,4 @@ weight: 98
 
 ## Changelog
 
-Track notable changes for each release here.
+Releases and changes are documented in **[CHANGELOG.md](https://github.com/lara-zeus/chaos/blob/3.x/CHANGELOG.md)** on GitHub.
