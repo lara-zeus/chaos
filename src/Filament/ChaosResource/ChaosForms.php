@@ -52,7 +52,7 @@ class ChaosForms
                                             ? $record->updated_at->translatedFormat('Y/m/d - h:i A')
                                             : '-'),
 
-                                    /*PopoverForm::make('updated_by')
+                                    PopoverForm::make('updated_by')
                                         ->formatStateUsing(fn ($record) => $record?->updatedBy?->name)
                                         ->placement('right')
                                         ->content(fn ($record) => view('zeus-chaos::tables.columns.popover-user-card', [
@@ -60,7 +60,7 @@ class ChaosForms
                                             'column' => 'updated-by',
                                             'record' => $record,
                                         ]))
-                                        ->label(__('zeus-chaos::core.updated_by')),*/
+                                        ->label(__('zeus-chaos::core.updated_by')),
                                 ])
                                 ->icon('tabler-info-circle-filled')
                                 ->collapsible()
