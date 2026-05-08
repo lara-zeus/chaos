@@ -43,7 +43,7 @@ zeus chaos is a thin convention layer on top of Filament. It standardizes how **
 
 ## Full Documentation
 
-> Visit our website to get the complete documentation: https://larazeus.com/docs/popover
+> Visit our website to get the complete documentation: https://larazeus.com/docs/chaos
 
 ## Support
 
