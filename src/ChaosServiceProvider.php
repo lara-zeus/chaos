@@ -13,6 +13,7 @@ class ChaosServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package->name(static::$name)
+            ->hasConfigFile()
             ->hasTranslations()
             ->hasViews();
     }
