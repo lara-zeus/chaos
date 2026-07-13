@@ -18,11 +18,19 @@ class ChaosResource extends Resource
 
     public static function getModelLabel(): string
     {
+        if (! config('zeus-chaos.use_locale', true)) {
+            return parent::getModelLabel();
+        }
+
         return __(static::langFile() . '.titleSingle');
     }
 
     public static function getPluralModelLabel(): string
     {
+        if (! config('zeus-chaos.use_locale', true)) {
+            return parent::getPluralModelLabel();
+        }
+
         return __(static::langFile() . '.title');
     }
 
