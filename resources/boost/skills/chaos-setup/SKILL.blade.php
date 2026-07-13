@@ -1,5 +1,5 @@
 ---
-name: Chaos Setup and Standardization
+name: zeus-chaos-setup
 description: Rules for migrating a project to lara-zeus/chaos architecture, covering migrations, model traits, and Filament resource components.
 compatible_agents:
   - Claude Code
@@ -38,8 +38,11 @@ This skill outlines the strict architectural conversion required when onboarding
 
 ### 4. Layout & Schema Constraints
 * **Forms:** All forms inside your resources must encapsulate their schema arrays via `ChaosForms::make(schema: [...], sidebar: [...])`.
-* **Tables:** All index tables must structure their column definitions via `ChaosTables::make([...])` to automatically inject standard pagination, popovers, and filters.
+* **Tables:** All index tables must structure their column definitions via `ChaosTables::make(resource: ..., table: ..., columns: [...])` to automatically inject standard pagination, popovers, and filters.
 * **Infolists:** All infolists must format their content layout inside `ChaosInfos::make(schema: [...], sidebar: [...])`.
+* **IMPORTANT:** In `ChaosForms::make()`, `ChaosTables::make()`, and `ChaosInfos::make()`, **always** use named arguments (e.g., `schema: $schema`, `resource: \App\Filament\Resources\PostResource::class`, `table: $table`, `columns: [...]`).
+
+* **IMPORTANT:** Never add `id`, `created_at`, `updated_at`, `created_by`, or `updated_by` to the Filament table columns, and if they exist, remove them. `ChaosTables` automatically appends these columns.
 
 ---
 
@@ -113,28 +116,28 @@ class PostResource extends ChaosResource
 
     public static function form(Form $form): Form
     {
-        return $form->schema(
-            ChaosForms::make(
-                schema: [TextInput::make('title')->required()]
-            )
+        return ChaosForms::make(
+            form: $form,
+            schema: [TextInput::make('title')->required()]
         );
     }
 
     public static function table(Table $table): Table
     {
-        return $table->columns(
-            ChaosTables::make([
+        return ChaosTables::make(
+            resource: static::class,
+            table: $table,
+            columns: [
                 TextColumn::make('title'),
-            ])
+            ]
         );
     }
 
     public static function infolist(Infolist $infolist): Infolist
     {
-        return $infolist->schema(
-            ChaosInfos::make(
-                schema: [/* view details */]
-            )
+        return ChaosInfos::make(
+            schema: $infolist,
+            enries: [/* view details */]
         );
     }
 }

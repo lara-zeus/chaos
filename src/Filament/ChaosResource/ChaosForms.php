@@ -13,12 +13,11 @@ class ChaosForms
     public static function make(Schema $form, array $schema, array $sideSections = []): Schema
     {
         return $form->components([
-            Grid::make(['sm' => 4])
+            Grid::make(3)
                 ->columnSpanFull()
                 ->schema([
-
                     Grid::make()
-                        ->columnSpanFull()
+                        ->columnSpan(2)
                         ->schema($schema)
                         ->columnSpan(fn (string $operation) => (static::showSideSection($operation, $sideSections, $form)) ? 3 : 4),
 

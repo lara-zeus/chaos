@@ -14,22 +14,23 @@ class ChaosInfos
     /**
      * @throws Exception
      */
-    public static function make(Schema $schema, array $enries): Schema
+    public static function make(Schema $schema, array $enries, array $sideSection = []): Schema
     {
         return $schema
             ->components([
-                Grid::make(['sm' => 3])
+                Grid::make(3)
                     ->columnSpanFull()
                     ->schema([
                         Grid::make()
                             ->schema($enries)
-                            ->columnSpan(['sm' => 2]),
+                            ->columnSpan(2),
                         Grid::make()
                             ->schema([
+                                ...$sideSection,
                                 Section::make(__('zeus-chaos::core.record_info'))
                                     ->columnSpanFull()
                                     ->compact()
-                                    ->columns(2)
+                                    ->columns()
                                     ->iconColor('secondary')
                                     ->icon('tabler-info-circle-filled')
                                     ->collapsible()
@@ -49,7 +50,7 @@ class ChaosInfos
                                             ->state(fn ($record) => $record?->updated_by ? new HtmlString($record->updated_by) : '-'),
                                     ]),
                             ])
-                            ->columnSpan(['sm' => 1]),
+                            ->columnSpan(1),
                     ]),
             ]);
     }
