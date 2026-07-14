@@ -125,6 +125,7 @@ class ChaosTables
 
         return [
             BulkActionGroup::make([
+                ...$bulkActions,
                 DeleteBulkAction::make(),
                 // @phpstan-ignore-next-line
                 ForceDeleteBulkAction::make()->visible($table->getModel()::isUsingSoftDelete()),
