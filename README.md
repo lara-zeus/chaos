@@ -37,6 +37,10 @@ _💖 if you think this has potential, star ⭐️ the project to let me know :)
 
 zeus chaos is a thin convention layer on top of Filament. It standardizes how **resources**, **forms**, **tables**, **infolists**, and **models** handle things you repeat on every CRUD screen.
 
+## Laravel Boost Skill
+
+Chaos includes a skill file for [Laravel Boost](https://laravel-boost.com). This skill instructs AI assistants (like Claude Code and Cursor) on how to correctly migrate and standardize a project to the `lara-zeus/chaos` architecture. It covers database migrations (`actionBy`, `softDeletes`), model traits (`ChaosModel`), and strict usage of `ChaosResource`, `ChaosForms`, `ChaosTables`, and `ChaosInfos`.
+
 ## Features
 
 - **`ChaosModel`** — sets `created_by` / `updated_by` on save, defines `createdBy()` / `updatedBy()` relations, and exposes `isUsingActionBy()` / `isUsingSoftDelete()` so UI code can turn columns on or off.
