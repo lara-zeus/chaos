@@ -63,9 +63,15 @@ return [
 
 Builds a responsive **grid**: your fields (span 3 of 4 on `sm` when the sidebar is visible) plus an optional **right column** (span 1).
 
+**Signature**
+
+```php
+ChaosForms::make(Schema $form, array $schema, array $sideSections = []): Schema
+```
+
 **Parameters**
 
-1. **`Schema $form`** — the Filament schema instance from `public static function form(Schema $schema): Schema` (pass your `$schema` through).
+1. **`Schema $schema`** — the Filament schema instance from `public static function form(Schema $schema): Schema` (pass your `$schema` through).
 2. **`array $schema`** — components for the **main** area (sections, fields, etc.).
 3. **`array $sideSections`** (optional) — extra components **above** the built-in “record info” block in the sidebar.
 
@@ -87,15 +93,19 @@ use LaraZeus\Chaos\Filament\ChaosResource\ChaosForms;
 
 public static function form(Schema $schema): Schema
 {
-    return ChaosForms::make($schema, [
-        Section::make()
-            ->columnSpanFull()
-            ->schema([
-                // … your fields …
-            ]),
-    ], [
-        // optional: extra sidebar sections only
-    ]);
+    return ChaosForms::make(
+        form: $schema,
+        schema: [
+            Section::make()
+                ->columnSpanFull()
+                ->schema([
+                    // … your fields …
+                ]),
+        ],
+        sideSections: [
+            // optional: extra sidebar sections only
+        ]
+    );
 }
 ```
 
@@ -135,6 +145,8 @@ ChaosTables::make(
 - **Pagination**: page sizes **`[25]`**.
 - **Default sort**: primary key **descending**.
 
+**IMPORTANT:** Never add `id`, `created_at`, `updated_at`, `created_by`, or `updated_by` to the `$columns` array, and if they exist, remove them. `ChaosTables` automatically appends these columns.
+
 **Example**
 
 ```php
@@ -144,8 +156,8 @@ use LaraZeus\Chaos\Filament\ChaosResource\ChaosTables;
 public static function table(Table $table): Table
 {
     return ChaosTables::make(
-        static::class,
-        $table,
+        resource: static::class,
+        table: $table,
         columns: [
             // … your columns …
         ],
@@ -171,7 +183,7 @@ For **view** / infolist **`Schema`**: two-column layout with your **entries** on
 **Signature**
 
 ```php
-ChaosInfos::make(Schema $schema, array $enries): Schema
+ChaosInfos::make(Schema $schema, array $enries, array $sideSection = []): Schema
 ```
 
 The second parameter is the array of **infolist components** for the main column (the parameter name in code is `$enries`).
@@ -184,9 +196,15 @@ use LaraZeus\Chaos\Filament\ChaosResource\ChaosInfos;
 
 public static function infolist(Schema $schema): Schema
 {
-    return ChaosInfos::make($schema, [
-        // … TextEntry::make(...) components for your model …
-    ]);
+    return ChaosInfos::make(
+        schema: $schema,
+        enries: [
+            // … TextEntry::make(...) components for your model …
+        ],
+        sideSection: [
+            // optional: extra sidebar components
+        ]
+    );
 }
 ```
 
