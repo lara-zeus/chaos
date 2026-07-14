@@ -44,6 +44,11 @@ This skill outlines the strict architectural conversion required when onboarding
 
 * **IMPORTANT:** Never add `id`, `created_at`, `updated_at`, `created_by`, or `updated_by` to the Filament table columns, and if they exist, remove them. `ChaosTables` automatically appends these columns.
 
+### 5. Translations
+* Do not define `getModelLabel` or `getPluralModelLabel` in resources that extend `ChaosResource`.
+* Do not override `langFile()` method in the resource unless explicitly requested. The default `langFile()` resolution must be used. Ensure the translation file path matches this default resolution (e.g., in root `lang/{locale}/` rather than deep `filament/resources/` paths depending on parent configuration).
+* Ensure the translation file contains `titleSingle` and `title` keys instead of custom nested structures.
+
 ---
 
 ## Examples

@@ -9,6 +9,10 @@ weight: 1
 
 **[Github](https://github.com/lara-zeus/chaos) · [Packagist](https://packagist.org/packages/lara-zeus/chaos) · [Discord](https://discord.com/channels/883083792112300104)**
 
+## Laravel Boost Skill
+
+Chaos includes a skill file for [Laravel Boost](https://laravel-boost.com). This skill instructs AI assistants (like Claude Code and Cursor) on how to correctly migrate and standardize a project to the `lara-zeus/chaos` architecture. It covers database migrations (`actionBy`, `softDeletes`), model traits (`ChaosModel`), and strict usage of `ChaosResource`, `ChaosForms`, `ChaosTables`, and `ChaosInfos`.
+
 ## Features
 
 - **`ChaosModel`** — sets `created_by` / `updated_by` on save, defines `createdBy()` / `updatedBy()` relations, and exposes `isUsingActionBy()` / `isUsingSoftDelete()` so UI code can turn columns on or off.
