@@ -38,11 +38,15 @@ class ChaosForms
                                     PopoverForm::make('created_by')
                                         ->formatStateUsing(fn ($record) => $record?->createdBy?->name)
                                         ->placement('right')
-                                        ->content(fn ($record) => view('zeus-chaos::tables.columns.popover-user-card', [
-                                            'user' => $record?->createdBy,
-                                            'column' => 'created-by',
-                                            'record' => $record,
-                                        ]))
+                                        ->content(function ($record) {
+                                            /** @var view-string $view */
+                                            $view = 'zeus-chaos::tables.columns.popover-user-card';
+                                            return view($view, [
+                                                'user' => $record?->createdBy,
+                                                'column' => 'created-by',
+                                                'record' => $record,
+                                            ]);
+                                        })
                                         ->label(__('zeus-chaos::core.created_by')),
 
                                     TextEntry::make('updated_at')
@@ -54,11 +58,15 @@ class ChaosForms
                                     PopoverForm::make('updated_by')
                                         ->formatStateUsing(fn ($record) => $record?->updatedBy?->name)
                                         ->placement('right')
-                                        ->content(fn ($record) => view('zeus-chaos::tables.columns.popover-user-card', [
-                                            'user' => $record?->updatedBy,
-                                            'column' => 'updated-by',
-                                            'record' => $record,
-                                        ]))
+                                        ->content(function ($record) {
+                                            /** @var view-string $view */
+                                            $view = 'zeus-chaos::tables.columns.popover-user-card';
+                                            return view($view, [
+                                                'user' => $record?->updatedBy,
+                                                'column' => 'updated-by',
+                                                'record' => $record,
+                                            ]);
+                                        })
                                         ->label(__('zeus-chaos::core.updated_by')),
                                 ])
                                 ->icon('tabler-info-circle-filled')
