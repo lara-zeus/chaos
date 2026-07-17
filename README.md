@@ -10,10 +10,11 @@
 <p align="center">
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/lara-zeus/chaos.svg?style=flat-square)](https://packagist.org/packages/lara-zeus/chaos)
-[![Tests](https://img.shields.io/github/actions/workflow/status/lara-zeus/chaos/run-tests.yml?label=tests&style=flat-square&branch=1.x)](https://github.com/lara-zeus/chaos/actions?query=workflow%3Arun-tests+branch%3A1.x)
-[![Code Style](https://img.shields.io/github/actions/workflow/status/lara-zeus/chaos/fix-php-code-style-issues.yml?label=code-style&flat-square)](https://github.com/lara-zeus/chaos/actions?query=workflow%3Afix-php-code-style-issues+branch%3A1.x)
+[![Tests](https://img.shields.io/github/actions/workflow/status/lara-zeus/chaos/run-tests.yml?label=tests&style=flat-square&branch=3.x)](https://github.com/lara-zeus/chaos/actions?query=workflow%3Arun-tests+branch%3A3.x)
+[![Code Style](https://img.shields.io/github/actions/workflow/status/lara-zeus/chaos/fix-php-code-style-issues.yml?label=code-style&flat-square)](https://github.com/lara-zeus/chaos/actions?query=workflow%3Afix-php-code-style-issues+branch%3A3.x)
 [![Total Downloads](https://img.shields.io/packagist/dt/lara-zeus/chaos.svg?style=flat-square)](https://packagist.org/packages/lara-zeus/chaos)
-[![Total Downloads](https://img.shields.io/github/stars/lara-zeus/chaos?style=flat-square)](https://github.com/lara-zeus/chaos)
+[![Total Stars](https://img.shields.io/github/stars/lara-zeus/chaos?style=flat-square)](https://github.com/lara-zeus/chaos)
+[![Plumb score](https://plumbphp.dev/badges/lara-zeus/chaos/composite.svg)](https://plumbphp.dev/lara-zeus/chaos)
 
 </p>
 
