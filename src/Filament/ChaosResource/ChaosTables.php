@@ -16,6 +16,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use LaraZeus\Popover\Tables\PopoverColumn;
 
 class ChaosTables
@@ -34,7 +35,7 @@ class ChaosTables
         array $filters = []
     ): Table {
 
-        $model = (new ($resource::getModel()));
+        $model = new ($table->getModel());
 
         return $table
             ->columns([
@@ -42,7 +43,7 @@ class ChaosTables
                     ->searchable(query: fn (
                         Builder $query,
                         string $search
-                    ) => $query->orWhere($model->getTable() . '.' . $model->getKeyName(), 'like', '%' . $search . '%'))
+                    ) => $query->orWhere(DB::raw($model->getTable() . '.' . $model->getKeyName()), 'like', '%' . $search . '%'))
                     ->label(__('zeus-chaos::core.id'))
                     ->toggleable(isToggledHiddenByDefault: true),
 
@@ -57,14 +58,19 @@ class ChaosTables
                 PopoverColumn::make('createdBy.name')
                     ->placement('bottom')
                     ->searchable(['name'])
-                    ->content(fn ($record) => view('zeus-chaos::tables.columns.popover-user-card', [
-                        'user' => $record->createdBy,
-                        'column' => 'created-by',
-                        'record' => $record,
-                    ]))
+                    ->content(function ($record) {
+                        /** @var view-string $view */
+                        $view = 'zeus-chaos::tables.columns.popover-user-card';
+
+                        return view($view, [
+                            'user' => $record->createdBy,
+                            'column' => 'created-by',
+                            'record' => $record,
+                        ]);
+                    })
                     ->label(__('zeus-chaos::core.created_by'))
                     ->toggleable(isToggledHiddenByDefault: true)
-                    ->visible($model::isUsingActionBy()),
+                    ->visible(method_exists($model, 'isUsingActionBy') && $model::isUsingActionBy()),
 
                 TextColumn::make('updated_at')
                     ->label(__('zeus-chaos::core.updated_at'))
@@ -75,17 +81,22 @@ class ChaosTables
                 PopoverColumn::make('updatedBy.name')
                     ->placement('right')
                     ->searchable(['name'])
-                    ->content(fn ($record) => view('zeus-chaos::tables.columns.popover-user-card', [
-                        'user' => $record?->updatedBy,
-                        'column' => 'updated-by',
-                        'record' => $record,
-                    ]))
+                    ->content(function ($record) {
+                        /** @var view-string $view */
+                        $view = 'zeus-chaos::tables.columns.popover-user-card';
+
+                        return view($view, [
+                            'user' => $record?->updatedBy,
+                            'column' => 'updated-by',
+                            'record' => $record,
+                        ]);
+                    })
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->label(__('zeus-chaos::core.updated_by'))
-                    ->visible($model::isUsingActionBy()),
+                    ->visible(method_exists($model, 'isUsingActionBy') && $model::isUsingActionBy()),
 
                 TextColumn::make('deleted_at')
-                    ->visible($model::isUsingSoftDelete())
+                    ->visible(method_exists($model, 'isUsingSoftDelete') && $model::isUsingSoftDelete())
                     ->label(__('zeus-chaos::core.deleted_at'))
                     ->dateTime()
                     ->searchable(false)
@@ -104,16 +115,18 @@ class ChaosTables
                             })->isEmpty()
                                 && $resource::authorize('delete', $record)->allowed();
                         }),
-                    ForceDeleteAction::make(),
-                    RestoreAction::make(),
+                    ...(method_exists($model, 'isUsingSoftDelete') && $model::isUsingSoftDelete() ? [
+                        ForceDeleteAction::make(),
+                        RestoreAction::make(),
+                    ] : []),
                 ]),
             ])
             ->filters([
                 ...$filters,
-                TrashedFilter::make()->visible($model::isUsingSoftDelete()),
+                TrashedFilter::make()->visible(method_exists($model, 'isUsingSoftDelete') && $model::isUsingSoftDelete()),
             ])
             ->paginated([25])
-            ->defaultSort($model->getKeyName(), 'desc')
+            ->defaultSort($model->getTable() . '.' . $model->getKeyName(), 'desc')
             ->toolbarActions(static::getBulkActions($bulkActions, $table));
     }
 
@@ -123,14 +136,16 @@ class ChaosTables
             return [];
         }
 
+        $model = $table->getModel();
+
         return [
             BulkActionGroup::make([
                 ...$bulkActions,
                 DeleteBulkAction::make(),
                 // @phpstan-ignore-next-line
-                ForceDeleteBulkAction::make()->visible($table->getModel()::isUsingSoftDelete()),
+                ForceDeleteBulkAction::make()->visible(method_exists($model, 'isUsingSoftDelete') && $model::isUsingSoftDelete()),
                 // @phpstan-ignore-next-line
-                RestoreBulkAction::make()->visible($table->getModel()::isUsingSoftDelete()),
+                RestoreBulkAction::make()->visible(method_exists($model, 'isUsingSoftDelete') && $model::isUsingSoftDelete()),
             ]),
         ];
     }
