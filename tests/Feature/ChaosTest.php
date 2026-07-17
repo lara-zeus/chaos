@@ -9,8 +9,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use LaraZeus\Chaos\Filament\ChaosResource\ChaosTables;
 use Livewire\Component;
+use Livewire\Livewire;
 use Tests\Filament\Resources\PostResource;
+use Tests\Filament\Resources\PostResource\Pages\ListPosts;
 use Tests\Models\Post;
+use Tests\Models\User;
 
 it('registers blueprint macros', function () {
     $connection = DB::connection();
@@ -26,6 +29,25 @@ it('sets updated_by on update', function () {
     $post->update(['title' => 'Updated Post']);
 
     expect($post->updated_by)->not->toBeNull();
+});
+
+it('renders createdBy and updatedBy popover contents in ChaosTables', function () {
+    $post = Post::create(['title' => 'Test Post']);
+    $user = User::create(['name' => 'Test User', 'email' => 'test@test.com', 'password' => 'password']);
+    $post->createdBy()->associate($user);
+    $post->updatedBy()->associate($user);
+    $post->save();
+
+    $livewire = Livewire::test(ListPosts::class);
+    $table = $livewire->instance()->getTable('table');
+
+    $createdCol = $table->getColumn('createdBy.name')->record($post);
+    $createdCol->evaluate($createdCol->getContent());
+
+    $updatedCol = $table->getColumn('updatedBy.name')->record($post);
+    $updatedCol->evaluate($updatedCol->getContent());
+
+    expect(true)->toBeTrue();
 });
 
 it('tests chaos resource locale config disabled', function () {
