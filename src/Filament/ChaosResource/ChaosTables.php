@@ -16,6 +16,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use LaraZeus\Popover\Tables\PopoverColumn;
 
 class ChaosTables
@@ -42,7 +43,7 @@ class ChaosTables
                     ->searchable(query: fn (
                         Builder $query,
                         string $search
-                    ) => $query->orWhere(\Illuminate\Support\Facades\DB::raw($model->getTable() . '.' . $model->getKeyName()), 'like', '%' . $search . '%'))
+                    ) => $query->orWhere(DB::raw($model->getTable() . '.' . $model->getKeyName()), 'like', '%' . $search . '%'))
                     ->label(__('zeus-chaos::core.id'))
                     ->toggleable(isToggledHiddenByDefault: true),
 
@@ -60,6 +61,7 @@ class ChaosTables
                     ->content(function ($record) {
                         /** @var view-string $view */
                         $view = 'zeus-chaos::tables.columns.popover-user-card';
+
                         return view($view, [
                             'user' => $record->createdBy,
                             'column' => 'created-by',
@@ -82,6 +84,7 @@ class ChaosTables
                     ->content(function ($record) {
                         /** @var view-string $view */
                         $view = 'zeus-chaos::tables.columns.popover-user-card';
+
                         return view($view, [
                             'user' => $record?->updatedBy,
                             'column' => 'updated-by',
