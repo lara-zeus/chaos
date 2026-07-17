@@ -4,6 +4,7 @@ namespace LaraZeus\Chaos\Concerns;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User;
 
 trait ChaosModel
 {
@@ -22,13 +23,15 @@ trait ChaosModel
 
     public function createdBy(): BelongsTo
     {
-        $userModel = config('auth.providers.users.model', \Illuminate\Foundation\Auth\User::class);
+        $userModel = config('auth.providers.users.model', User::class);
+
         return $this->belongsTo($userModel, 'created_by');
     }
 
     public function updatedBy(): BelongsTo
     {
-        $userModel = config('auth.providers.users.model', \Illuminate\Foundation\Auth\User::class);
+        $userModel = config('auth.providers.users.model', User::class);
+
         return $this->belongsTo($userModel, 'updated_by');
     }
 

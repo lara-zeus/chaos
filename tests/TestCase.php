@@ -15,8 +15,10 @@ use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use LaraZeus\Chaos\ChaosServiceProvider;
+use LaraZeus\Popover\PopoverServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use secondnetwork\TablerIcons\BladeTablerIconsServiceProvider;
 use Tests\Models\User;
 
 abstract class TestCase extends BaseTestCase
@@ -59,8 +61,8 @@ abstract class TestCase extends BaseTestCase
             WidgetsServiceProvider::class,
             ChaosServiceProvider::class,
             LivewireServiceProvider::class,
-            \LaraZeus\Popover\PopoverServiceProvider::class,
-            \secondnetwork\TablerIcons\BladeTablerIconsServiceProvider::class,
+            PopoverServiceProvider::class,
+            BladeTablerIconsServiceProvider::class,
         ];
     }
 }

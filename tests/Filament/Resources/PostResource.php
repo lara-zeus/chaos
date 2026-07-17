@@ -2,48 +2,63 @@
 
 namespace Tests\Filament\Resources;
 
-use Tests\Models\Post;
+use BackedEnum;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use LaraZeus\Chaos\Filament\ChaosResource;
+use LaraZeus\Chaos\Filament\ChaosResource\ChaosForms;
+use LaraZeus\Chaos\Filament\ChaosResource\ChaosInfos;
+use LaraZeus\Chaos\Filament\ChaosResource\ChaosTables;
+use LaraZeus\Chaos\Forms\Components\MultiLang;
+use Tests\Filament\Resources\PostResource\Pages\CreatePost;
+use Tests\Filament\Resources\PostResource\Pages\EditPost;
+use Tests\Filament\Resources\PostResource\Pages\ListPosts;
+use Tests\Filament\Resources\PostResource\Pages\ViewPost;
+use Tests\Models\Post;
 
 class PostResource extends ChaosResource
 {
     protected static ?string $model = Post::class;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-document-text';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-document-text';
 
-    public static function form(\Filament\Schemas\Schema $schema): \Filament\Schemas\Schema
+    public static function form(Schema $schema): Schema
     {
-        return \LaraZeus\Chaos\Filament\ChaosResource\ChaosForms::make($schema, [
+        return ChaosForms::make($schema, [
             TextInput::make('title')->required(),
-            \LaraZeus\Chaos\Forms\Components\MultiLang::make('content'),
+            MultiLang::make('content'),
         ]);
     }
 
-    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
+    public static function table(Table $table): Table
     {
-        return \LaraZeus\Chaos\Filament\ChaosResource\ChaosTables::make(static::class, $table, [
-            \Filament\Tables\Columns\TextColumn::make('title'),
+        return ChaosTables::make(static::class, $table, [
+            TextColumn::make('title'),
         ], [
-            \Filament\Actions\EditAction::make(),
-            \Filament\Actions\DeleteAction::make(),
+            EditAction::make(),
+            DeleteAction::make(),
         ]);
     }
 
-    public static function infolist(\Filament\Schemas\Schema $schema): \Filament\Schemas\Schema
+    public static function infolist(Schema $schema): Schema
     {
-        return \LaraZeus\Chaos\Filament\ChaosResource\ChaosInfos::make($schema, [
-            \Filament\Infolists\Components\TextEntry::make('title'),
+        return ChaosInfos::make($schema, [
+            TextEntry::make('title'),
         ]);
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => \Tests\Filament\Resources\PostResource\Pages\ListPosts::route('/'),
-            'create' => \Tests\Filament\Resources\PostResource\Pages\CreatePost::route('/create'),
-            'edit' => \Tests\Filament\Resources\PostResource\Pages\EditPost::route('/{record}/edit'),
-            'view' => \Tests\Filament\Resources\PostResource\Pages\ViewPost::route('/{record}'),
+            'index' => ListPosts::route('/'),
+            'create' => CreatePost::route('/create'),
+            'edit' => EditPost::route('/{record}/edit'),
+            'view' => ViewPost::route('/{record}'),
         ];
     }
 }

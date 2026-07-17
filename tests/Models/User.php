@@ -14,8 +14,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable implements FilamentUser
 {
-    use HasFactory;
-
     protected $guarded = [];
 
     public $timestamps = false;

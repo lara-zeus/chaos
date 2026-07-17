@@ -42,7 +42,7 @@ class ChaosTables
                     ->searchable(query: fn (
                         Builder $query,
                         string $search
-                    ) => $query->orWhere($model->getTable() . '.' . $model->getKeyName(), 'like', '%' . $search . '%'))
+                    ) => $query->orWhere(\Illuminate\Support\Facades\DB::raw($model->getTable() . '.' . $model->getKeyName()), 'like', '%' . $search . '%'))
                     ->label(__('zeus-chaos::core.id'))
                     ->toggleable(isToggledHiddenByDefault: true),
 
@@ -57,11 +57,15 @@ class ChaosTables
                 PopoverColumn::make('createdBy.name')
                     ->placement('bottom')
                     ->searchable(['name'])
-                    ->content(fn ($record) => view('zeus-chaos::tables.columns.popover-user-card', [
-                        'user' => $record->createdBy,
-                        'column' => 'created-by',
-                        'record' => $record,
-                    ]))
+                    ->content(function ($record) {
+                        /** @var view-string $view */
+                        $view = 'zeus-chaos::tables.columns.popover-user-card';
+                        return view($view, [
+                            'user' => $record->createdBy,
+                            'column' => 'created-by',
+                            'record' => $record,
+                        ]);
+                    })
                     ->label(__('zeus-chaos::core.created_by'))
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->visible(method_exists($model, 'isUsingActionBy') && $model::isUsingActionBy()),
@@ -75,11 +79,15 @@ class ChaosTables
                 PopoverColumn::make('updatedBy.name')
                     ->placement('right')
                     ->searchable(['name'])
-                    ->content(fn ($record) => view('zeus-chaos::tables.columns.popover-user-card', [
-                        'user' => $record?->updatedBy,
-                        'column' => 'updated-by',
-                        'record' => $record,
-                    ]))
+                    ->content(function ($record) {
+                        /** @var view-string $view */
+                        $view = 'zeus-chaos::tables.columns.popover-user-card';
+                        return view($view, [
+                            'user' => $record?->updatedBy,
+                            'column' => 'updated-by',
+                            'record' => $record,
+                        ]);
+                    })
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->label(__('zeus-chaos::core.updated_by'))
                     ->visible(method_exists($model, 'isUsingActionBy') && $model::isUsingActionBy()),

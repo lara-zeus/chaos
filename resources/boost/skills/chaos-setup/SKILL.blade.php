@@ -37,6 +37,13 @@ This skill outlines the strict architectural conversion required when onboarding
 * View views must extend `LaraZeus\Chaos\Filament\Pages\ChaosViewRecord`.
 
 ### 4. Layout & Schema Constraints
+* **Forms:** All forms inside your resources must encapsulate their schema arrays via `ChaosForms::make(schema: [...], sidebar: [...])`.
+* **Tables:** All index tables must structure their column definitions via `ChaosTables::make(resource: ..., table: ..., columns: [...])` to automatically inject standard pagination, popovers, and filters. This applies to **both Resources and RelationManagers**.
+* **Infolists:** All infolists must format their content layout inside `ChaosInfos::make(schema: [...], sidebar: [...])`.
+* **IMPORTANT:** In `ChaosForms::make()`, `ChaosTables::make()`, and `ChaosInfos::make()`, **always** use named arguments (e.g., `schema: $schema`, `resource: \App\Filament\Resources\PostResource::class`, `table: $table`, `columns: [...]`).
+* **IMPORTANT:** For RelationManagers using `ChaosTables::make()`, ensure the `resource` argument matches the parent Resource where the relation is displayed, or the specific Resource that defines the related model.
+* **IMPORTANT:** When using `ChaosTables`, there is no need to manually add `EditAction`, `DeleteAction`, `DeleteBulkAction`, or `CreateAction` to the table configuration unless explicitly asked for or if you need to modify these actions. `ChaosTables` handles standard record and bulk actions automatically.
+
 
 Separate the **Chaos wrappers** (which live in the Resource) from the **component/column/filter definitions** (which live in dedicated Schema and Table classes). The Resource's `form()`, `table()`, and `infolist()` methods contain ONLY the Chaos wrapper call and delegate the actual arrays to dedicated classes.
 
