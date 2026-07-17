@@ -30,8 +30,8 @@ it('sets updated_by on update', function () {
 
 it('tests chaos resource locale config disabled', function () {
     config(['zeus-chaos.use_locale' => false]);
-    expect(PostResource::getModelLabel())->toBe('post');
-    expect(PostResource::getPluralModelLabel())->toBe('posts');
+    expect(PostResource::getModelLabel())->toBe('post')
+        ->and(PostResource::getPluralModelLabel())->toBe('posts');
 });
 
 it('tests chaos tables with null bulk actions', function () {
