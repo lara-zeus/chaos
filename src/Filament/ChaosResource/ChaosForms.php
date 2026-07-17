@@ -41,6 +41,7 @@ class ChaosForms
                                         ->content(function ($record) {
                                             /** @var view-string $view */
                                             $view = 'zeus-chaos::tables.columns.popover-user-card';
+
                                             return view($view, [
                                                 'user' => $record?->createdBy,
                                                 'column' => 'created-by',
@@ -61,6 +62,7 @@ class ChaosForms
                                         ->content(function ($record) {
                                             /** @var view-string $view */
                                             $view = 'zeus-chaos::tables.columns.popover-user-card';
+
                                             return view($view, [
                                                 'user' => $record?->updatedBy,
                                                 'column' => 'updated-by',
